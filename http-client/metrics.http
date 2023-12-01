@@ -1,0 +1,14 @@
+### Increase counter
+GET http://127.0.0.1:8000/stats/counter/2
+
+### Set gauge value
+GET http://127.0.0.1:8000/stats/gauge/5
+
+### Observe histogram value
+GET http://127.0.0.1:8000/stats/histogram/201
+
+### Generate random response statistics
+GET http://127.0.0.1:8000/generate-measurements
+
+### Get metrics (usually scrapped by prometheus)
+GET http://127.0.0.1:8000/metrics

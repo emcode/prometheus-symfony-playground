@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  prometheus:
+    command: --config.file=/etc/prometheus/prometheus.yml --log.level=debug
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./prometheus-app/prometheus.yml:/etc/prometheus/prometheus.yml

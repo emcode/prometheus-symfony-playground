@@ -1,0 +1,60 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    Prometheus\Storage\Redis:
+        arguments:
+            - { 'host': '127.0.0.1' }
+
+    Prometheus\CollectorRegistry:
+        arguments:
+            - '@Prometheus\Storage\Redis'
+        calls:
+            - registerCounter:
+                $namespace: 'test'
+                $name: 'some_counter'
+                $help: 'it increases some value'
+                $labels: [ 'type', 'second_label' ]
+            - registerGauge:
+                $namespace: 'test'
+                $name: 'some_gauge'
+                $help: 'it sets some value'
+                $labels: [ 'type' ]
+            - registerHistogram:
+                $namespace: 'test'
+                $name: 'some_histogram'
+                $help: 'it observes values grouped by buckets'
+                $labels: [ 'type' ]
+                $buckets: [100, 200, 300, 400]
+            - registerHistogram:
+                $namespace: 'test'
+                $name: 'request_duration'
+                $help: 'tracks synthetic duration times'
+                $labels: []
+                $buckets: ~ # using default buckets
+            - registerCounter:
+                $namespace: 'test'
+                $name: 'response_status_code'
+                $help: 'counts num of responses by status codes'
+                $labels: [ 'status_code' ]

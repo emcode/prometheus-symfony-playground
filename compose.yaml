@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  redis:
+    image: redis:7.2.2-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+  prometheus:
+    image: prom/prometheus:v2.47.2
+    ports:
+      - "9090:9090"
+    volumes:
+      - prometheus_data:/prometheus
+
+volumes:
+  prometheus_data:
+  redis_data:
