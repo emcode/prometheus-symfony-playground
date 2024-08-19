@@ -25,7 +25,7 @@ services:
 
     Prometheus\Storage\Redis:
         arguments:
-            - { 'host': '127.0.0.1' }
+            - { 'host': 'redis' }
 
     Prometheus\CollectorRegistry:
         arguments:

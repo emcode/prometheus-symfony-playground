@@ -3,12 +3,16 @@
 namespace App\Controller;
 
 use App\Prometheus\MetricsHelperService;
+use Prometheus\Exception\MetricNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 class GenerateStatsController extends AbstractController
 {
+    /**
+     * @throws MetricNotFoundException
+     */
     #[Route('/stats/counter/{value}', name: 'app_stats_counter')]
     public function updateCounter(
         MetricsHelperService $metricsHelper,
@@ -23,6 +27,9 @@ class GenerateStatsController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws MetricNotFoundException
+     */
     #[Route('/stats/gauge/{value}', name: 'app_stats_gauge')]
     public function updateGauge(
         MetricsHelperService $metricsHelper,
@@ -37,6 +44,9 @@ class GenerateStatsController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws MetricNotFoundException
+     */
     #[Route('/stats/histogram/{value}', name: 'app_stats_histogram')]
     public function updateHistogram(
         MetricsHelperService $metricsHelper,

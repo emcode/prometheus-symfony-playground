@@ -2,9 +2,9 @@
 
 namespace App\Prometheus;
 
-use PHPUnit\Framework\Constraint\Count;
 use Prometheus\CollectorRegistry;
 use Prometheus\Counter;
+use Prometheus\Exception\MetricNotFoundException;
 use Prometheus\Gauge;
 use Prometheus\Histogram;
 
@@ -15,6 +15,9 @@ class MetricsHelperService
     ) {
     }
 
+    /**
+     * @throws MetricNotFoundException
+     */
     public function getSomeSpecificCounter(): Counter
     {
         return $this->registry->getCounter(
@@ -23,6 +26,9 @@ class MetricsHelperService
         );
     }
 
+    /**
+     * @throws MetricNotFoundException
+     */
     public function getSomeSpecificGauge(): Gauge
     {
         return $this->registry->getGauge(
@@ -31,6 +37,9 @@ class MetricsHelperService
         );
     }
 
+    /**
+     * @throws MetricNotFoundException
+     */
     public function getSomeSpecificHistogram(): Histogram
     {
         return $this->registry->getHistogram(
@@ -39,6 +48,9 @@ class MetricsHelperService
         );
     }
 
+    /**
+     * @throws MetricNotFoundException
+     */
     public function getRequestDurationHistogram(): Histogram
     {
         return $this->registry->getHistogram(
@@ -47,6 +59,9 @@ class MetricsHelperService
         );
     }
 
+    /**
+     * @throws MetricNotFoundException
+     */
     public function getResponseStatusCounter(): Counter
     {
         return $this->registry->getCounter(

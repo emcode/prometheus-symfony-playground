@@ -1,26 +1,15 @@
-start:
-  just up
-  just sf-start
-
-stop:
-  just down
-  just sf-stop
-
 up:
   docker compose up -d
     
 down:
   docker compose down
-    
-sf-start:
-    symfony server:start --no-tls -d --allow-http --dir ./symfony-app
-    
-sf-logs:
-    symfony server:log --dir ./symfony-app --no-app-logs 
-    
-sf-stop:
-    symfony server:stop --dir ./symfony-app
-    
+
+build:
+  docker compose build
+
+into-app:
+  docker compose exec app bash
+
 logs:
   docker compose logs --follow
   

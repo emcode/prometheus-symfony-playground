@@ -13,6 +13,15 @@ services:
       - "9090:9090"
     volumes:
       - prometheus_data:/prometheus
+  app:
+    build:
+      dockerfile: ./Dockerfile
+      context: ./symfony-app
+    volumes:
+      - ./symfony-app:/home/app/app
+    command: sleep infinity
+    ports:
+      - "8000:8000"
 
 volumes:
   prometheus_data:
